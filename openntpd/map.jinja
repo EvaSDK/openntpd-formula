@@ -1,0 +1,22 @@
+# -*- coding: utf-8 -*-
+# vim: ft=jinja
+
+{% import_yaml 'openntpd/defaults.yaml' as default_settings %}
+
+{% set os_family_map = salt['grains.filter_by']({
+        'Debian': {
+            'config': '/etc/openntpd/ntpd.conf',
+        },
+    },
+    grain="os_family",
+    merge=salt['pillar.get']('openntpd:lookup'))
+%}
+
+{% do default_settings.openntpd.update(os_family_map) %}
+
+{% set openntpd = salt['pillar.get'](
+        'openntpd',
+        default=default_settings.openntpd,
+        merge=True
+    )
+%}

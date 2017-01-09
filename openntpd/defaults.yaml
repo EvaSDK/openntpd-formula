@@ -1,0 +1,9 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+
+openntpd:
+  pkg: openntpd
+  config_file: '/etc/ntpd.conf'
+  service:
+    name: openntpd
+
